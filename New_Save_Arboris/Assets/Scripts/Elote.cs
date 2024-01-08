@@ -29,7 +29,7 @@ public class Elote : MonoBehaviour
             Disparo = (BaviM.centro.transform.position - BaviM.mira.transform.position);
         }
 
-        if (Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
             if (posibleBomba == false)
             {
