@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class Vidas : MonoBehaviour
 {
-    public float vidas = 3;
+    public float vidas = 2;
+    public float limite = 3;
     public bool vulnerable = true;
     public bool movible = true;
     public GameObject enemigo;
     public GameObject Bavi;
+
+    public GameObject comida;
+
     public Vector3 chingadazo;
 
     public float velocidadMovimiento = 7.0f;
@@ -31,6 +35,16 @@ public class Vidas : MonoBehaviour
                 BaviM.Tomando = false;
                 BaviM.Agarrar = false;
             }
+        }
+        if (collision.collider.CompareTag("Composta"))
+        {
+            vidas = vidas + 1;
+            if(vidas > limite)
+            {
+                vidas = limite;
+            }
+            comida = collision.collider.gameObject;
+            Destroy(comida);
         }
     }
 

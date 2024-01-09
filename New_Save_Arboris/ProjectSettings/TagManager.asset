@@ -12,6 +12,7 @@ TagManager:
   - Basura
   - Enemigo
   - Coco
+  - Composta
   layers:
   - Default
   - TransparentFX
