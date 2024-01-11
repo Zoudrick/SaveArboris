@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class Dialogo : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class Dialogo : MonoBehaviour
 
     private void Update()
     {
-        if (Rangojugador && Input.GetButtonDown("Fire2"))
+        if (Rangojugador && (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
             if (!IniciaelDialogo)
             {

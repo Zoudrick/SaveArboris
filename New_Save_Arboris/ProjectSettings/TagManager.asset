@@ -13,6 +13,7 @@ TagManager:
   - Enemigo
   - Coco
   - Composta
+  - Elote
   layers:
   - Default
   - TransparentFX

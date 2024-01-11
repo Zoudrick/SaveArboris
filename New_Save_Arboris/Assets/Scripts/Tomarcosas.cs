@@ -10,6 +10,7 @@ public class Tomarcosas : MonoBehaviour
     public Piedra piedrita;
     public bool acercar = true;
     public bool Coco = false;
+    public bool Elotito = false;
 
     public GameObject Florecita;
 
@@ -18,7 +19,7 @@ public class Tomarcosas : MonoBehaviour
     Renderer rendererSujetable;
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Piedra") || other.CompareTag("Maceta") || other.CompareTag("Coco"))
+        if (other.CompareTag("Piedra") || other.CompareTag("Maceta") || other.CompareTag("Coco") || other.CompareTag("Elote"))
         {
             if (BaviM.Tomando == false)
             {
@@ -31,7 +32,7 @@ public class Tomarcosas : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Piedra") || other.CompareTag("Maceta") || other.CompareTag("Coco"))
+        if (other.CompareTag("Piedra") || other.CompareTag("Maceta") || other.CompareTag("Coco") || other.CompareTag("Elote"))
         {
             StartCoroutine(TriggerTime());
         }
@@ -50,7 +51,15 @@ public class Tomarcosas : MonoBehaviour
             {
                 Coco = true;
             }
-                if (acercar)
+            if (sujetable.tag.Equals("Elote"))
+            {
+                Elotito = true;
+            }
+            if (sujetable.tag.Equals("Maceta"))
+            {
+                sujetable.transform.position += Vector3.up * 0.1f;
+            }
+            if (acercar)
             {    
                 if (rendererSujetable != null)
                 {
@@ -88,6 +97,7 @@ public class Tomarcosas : MonoBehaviour
         {
             Tomable = false;
             Coco = false;
+            Elotito = false;
             Debug.Log("Intomable");
         }
     }

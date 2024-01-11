@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Vidas : MonoBehaviour
 {
-    public float vidas = 2;
-    public float limite = 3;
+    public HUD hud;
+
+    public int vidas = 2;
+    public int limite = 3;
     public bool vulnerable = true;
     public bool movible = true;
     public GameObject enemigo;
@@ -16,6 +18,13 @@ public class Vidas : MonoBehaviour
 
     public float velocidadMovimiento = 7.0f;
     public Movimiento BaviM;
+
+    private void Start()
+    {
+        hud.DesactivarVidas(2);
+        hud.DesactivarVidas(4);
+        hud.DesactivarVidas(3);
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Enemigo"))
@@ -25,6 +34,7 @@ public class Vidas : MonoBehaviour
                 enemigo = collision.gameObject;
                 movible = false;
                 vidas = vidas - 1;
+                hud.DesactivarVidas(vidas);
                 vulnerable = false;
                 chingadazo = enemigo.transform.position;
 
@@ -43,6 +53,7 @@ public class Vidas : MonoBehaviour
             {
                 vidas = limite;
             }
+            hud.ActivarVidas(vidas-1);
             comida = collision.collider.gameObject;
             Destroy(comida);
         }
