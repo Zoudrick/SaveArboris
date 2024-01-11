@@ -11,6 +11,8 @@ public class Tomarcosas : MonoBehaviour
     public bool acercar = true;
     public bool Coco = false;
 
+    public GameObject Florecita;
+
     public GameObject sujetable;
 
     Renderer rendererSujetable;
@@ -39,8 +41,6 @@ public class Tomarcosas : MonoBehaviour
     {
         Collider2D colliderSujetable = (sujetable != null) ? sujetable.GetComponent<Collider2D>() : null;
 
-
-
         if (BaviM.Agarrar)
         {
             sujetable.transform.position = transform.position;
@@ -54,7 +54,7 @@ public class Tomarcosas : MonoBehaviour
             {    
                 if (rendererSujetable != null)
                 {
-                    rendererSujetable.sortingOrder = 6;
+                    rendererSujetable.sortingOrder = 26;
                 }
             }
             else

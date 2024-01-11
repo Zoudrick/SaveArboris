@@ -9,7 +9,6 @@ public class Movimiento : MonoBehaviour
     public Piedra piedra;
     public Vidas vidas;
 
-
     public bool posibleAtaque = true;
 
     public bool Tomando = false;
@@ -19,7 +18,9 @@ public class Movimiento : MonoBehaviour
     public GameObject RamaGolpeadora;
 
     private float velocidad = 4.5f;
+    
     public Animator animator;
+
     public GameObject referencia;
     public GameObject mira;
     public GameObject centro;
@@ -38,9 +39,10 @@ public class Movimiento : MonoBehaviour
 
     void Update()
     {
+
         centro.transform.position = Bavi.transform.position + Vector3.down * .3f;
 
-        if (Input.GetKey(KeyCode.W)||Gamepad.current.leftStick.up.isPressed)
+        if (Input.GetKey(KeyCode.W)|| (Gamepad.current != null && Gamepad.current.leftStick.up.isPressed))
         {
             Bavi.transform.position += Vector3.up * Time.deltaTime * velocidad;
             animator.SetBool("Arriba", true);
@@ -60,7 +62,7 @@ public class Movimiento : MonoBehaviour
             mira.transform.position = centro.transform.position + Vector3.up * 1f;
             tomar.acercar = false;
         }
-        else if (Input.GetKey(KeyCode.A) || Gamepad.current.leftStick.left.isPressed)
+        else if (Input.GetKey(KeyCode.A) || (Gamepad.current != null && Gamepad.current.leftStick.left.isPressed))
         {
             Bavi.transform.position += Vector3.left * Time.deltaTime * velocidad;
             animator.SetBool("Izquierda", true);
@@ -80,7 +82,7 @@ public class Movimiento : MonoBehaviour
             mira.transform.position = centro.transform.position + Vector3.left * 1f;
             tomar.acercar = false;
         }
-        else if (Input.GetKey(KeyCode.S) || Gamepad.current.leftStick.down.isPressed)
+        else if (Input.GetKey(KeyCode.S) || (Gamepad.current != null && Gamepad.current.leftStick.down.isPressed))
         {
             Bavi.transform.position += Vector3.down * Time.deltaTime * velocidad;
             animator.SetBool("Abajo", true);
@@ -101,7 +103,7 @@ public class Movimiento : MonoBehaviour
 
             tomar.acercar = true;
         }
-        else if (Input.GetKey(KeyCode.D) || Gamepad.current.leftStick.right.isPressed)
+        else if (Input.GetKey(KeyCode.D) || (Gamepad.current != null && Gamepad.current.leftStick.right.isPressed))
         {
             Bavi.transform.position += Vector3.right * Time.deltaTime * velocidad;
             animator.SetBool("Derecha", true);
@@ -127,21 +129,30 @@ public class Movimiento : MonoBehaviour
         }
 
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonNorth.wasPressedThisFrame) && tomar.Tomable && Tomando == false)
+        if ((Input.GetKeyDown(KeyCode.Space) || (Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)) && tomar.Tomable && Tomando == false)
         {
             Agarrar = true;
         }
-        if ((Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonNorth.wasPressedThisFrame) && Tomando)
+        if ((Input.GetKeyDown(KeyCode.Space) || (Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)) && Tomando)
         {
             Agarrar = false;
             triangulo = false;
         }
 
-        if ((Input.GetKeyDown(KeyCode.M) || Gamepad.current.buttonWest.wasPressedThisFrame) && Tomando == false && posibleAtaque)
+        if ((Input.GetKeyDown(KeyCode.M) || (Gamepad.current != null && Gamepad.current.buttonWest.wasPressedThisFrame)) && Tomando == false && posibleAtaque)
         {
             animator.SetBool("Ataque", true);
             posibleAtaque = false;
             StartCoroutine(GolpeTime());
+        }
+
+        if (Tomando)
+        {
+            animator.SetBool("Sosteniendo", true);
+        }
+        else
+        {
+            animator.SetBool("Sosteniendo", false);
         }
     }
     IEnumerator GolpeTime()
